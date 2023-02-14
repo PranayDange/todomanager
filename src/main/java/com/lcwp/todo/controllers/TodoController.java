@@ -37,13 +37,29 @@ public class TodoController {
     @GetMapping
     public ResponseEntity<List<Todo>> getAllTodo() {
         List<Todo> getAllTodos = todoService.getAllTodos();
-            return  new ResponseEntity<>(getAllTodos,HttpStatus.OK);
+        return new ResponseEntity<>(getAllTodos, HttpStatus.OK);
     }
 
     //get single todo
     @GetMapping("/{todoId}")
-    public ResponseEntity<Todo> getSingleTodoHandler(@PathVariable int todoId){
-        Todo todo =todoService.getTodo(todoId);
+    public ResponseEntity<Todo> getSingleTodoHandler(@PathVariable int todoId) {
+        Todo todo = todoService.getTodo(todoId);
         return ResponseEntity.ok(todo);
+    }
+
+    //update todo
+    //for updating data we use put
+    @PutMapping("/{todoId}")
+    public ResponseEntity<Todo> updateTodoHandler(@RequestBody Todo todoWithNewDetails, @PathVariable int todoId) {
+        Todo todo = todoService.updateTodo(todoId, todoWithNewDetails);
+        return ResponseEntity.ok(todo);
+    }
+
+    //delete
+    @DeleteMapping("/{todoId}")
+    public ResponseEntity<String> deleteTodo(@PathVariable int todoId){
+        todoService.deleteTodo(todoId);
+        return  ResponseEntity.ok("TODO SUCCESSFULLY DELETED");
+
     }
 }
