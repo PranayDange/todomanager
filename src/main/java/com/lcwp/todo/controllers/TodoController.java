@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +30,11 @@ public class TodoController {
         logger.info("Create Todo");
         int id = random.nextInt(9999999);
         todo.setId(id);
+
+        Date currentDate = new Date();
+        logger.info("Current Date: {}", currentDate);
+        logger.info("Todo Date {}", todo.getTodoDate());
+        todo.setAddedDate(currentDate);
         Todo todo1 = todoService.createTodo(todo);
         return new ResponseEntity<>(todo1, HttpStatus.CREATED);
     }
@@ -57,9 +63,9 @@ public class TodoController {
 
     //delete
     @DeleteMapping("/{todoId}")
-    public ResponseEntity<String> deleteTodo(@PathVariable int todoId){
+    public ResponseEntity<String> deleteTodo(@PathVariable int todoId) {
         todoService.deleteTodo(todoId);
-        return  ResponseEntity.ok("TODO SUCCESSFULLY DELETED");
+        return ResponseEntity.ok("TODO SUCCESSFULLY DELETED");
 
     }
 }
