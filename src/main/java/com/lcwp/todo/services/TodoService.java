@@ -1,15 +1,19 @@
 package com.lcwp.todo.services;
 
+import com.lcwp.todo.exceptions.ResourceNotFoundException;
 import com.lcwp.todo.models.Todo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
+@Service
 public class TodoService {
 
     Logger logger = LoggerFactory.getLogger(TodoService.class);
@@ -22,11 +26,13 @@ public class TodoService {
     }
 
     public List<Todo> getAllTodos() {
+
         return todos;
     }
 
     public Todo getTodo(int todoId) {
-        Todo todo = todos.stream().filter(todo2 -> todoId == todo2.getId()).findAny().get();
+        //   Todo todo = todos.stream().filter(todo2 -> todoId == todo2.getId()).findAny().get();
+        Todo todo = todos.stream().filter(todo2 -> todoId == todo2.getId()).findAny().orElseThrow(() -> new ResourceNotFoundException("Todo not found with given Id", HttpStatus.NOT_FOUND));
         logger.info("TODO : {} ", todo);
         return todo;
     }
@@ -52,6 +58,6 @@ public class TodoService {
     public void deleteTodo(int todoId) {
         logger.info("DELETING TODO ");
         List<Todo> newList = todos.stream().filter(todo3 -> todo3.getId() != todoId).collect(Collectors.toList());
-        todos=newList;
+        todos = newList;
     }
 }
