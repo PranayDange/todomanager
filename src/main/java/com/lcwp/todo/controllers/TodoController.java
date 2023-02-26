@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -51,7 +52,7 @@ public class TodoController {
 
     //get single todo
     @GetMapping("/{todoId}")
-    public ResponseEntity<Todo> getSingleTodoHandler(@PathVariable int todoId) {
+    public ResponseEntity<Todo> getSingleTodoHandler(@PathVariable int todoId) throws ParseException {
         Todo todo = todoService.getTodo(todoId);
         return ResponseEntity.ok(todo);
     }
@@ -76,7 +77,7 @@ public class TodoController {
     public ResponseEntity<String> nullPointerExceptionHandler(NullPointerException ex) {
         System.out.println(ex.getMessage());
         //return "Null pointer exception" + ex.getMessage();
-        return new ResponseEntity<>("Null pointer exception" + ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Null pointer exception" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
    /* @ExceptionHandler(NumberFormatException.class)
@@ -86,10 +87,10 @@ public class TodoController {
         return new ResponseEntity<>("Nunber format exception" + ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
     }*/
 
-     @ExceptionHandler(value={NumberFormatException.class,NullPointerException.class})
+    @ExceptionHandler(value = {NumberFormatException.class, NullPointerException.class})
     public ResponseEntity<String> numberExceptionHandler(Exception ex) {
         System.out.println(ex.getMessage());
         //return "Null pointer exception" + ex.getMessage();
-        return new ResponseEntity<>("Nunber format exception" + ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Nunber format exception" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
