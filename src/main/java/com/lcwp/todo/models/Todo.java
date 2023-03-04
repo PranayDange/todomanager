@@ -2,15 +2,31 @@ package com.lcwp.todo.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-
+@Entity
+@Table(name="jpa_todos")
 public class Todo {
+
+    @Id
     private int id;
+
+    @Column(name="todo_title",length = 100)
     private String title;
+    @Column(name="todo_content",length = 100)
     private String content;
+
+    @Column(name="todo_status",length = 10)
+
     private String status;
+    @Column(name="todo_addedDate")
 
     private Date addedDate;
+
+    @Column(name = "todo_todo_date")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date todoDate;
 

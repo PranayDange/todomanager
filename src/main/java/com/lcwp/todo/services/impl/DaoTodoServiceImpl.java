@@ -1,7 +1,8 @@
-package com.lcwp.todo.services;
+package com.lcwp.todo.services.impl;
 
 import com.lcwp.todo.dao.TodoDao;
 import com.lcwp.todo.models.Todo;
+import com.lcwp.todo.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.util.List;
 
+
+//JDBC
 @Service
 @Primary
 public class DaoTodoServiceImpl implements TodoService {

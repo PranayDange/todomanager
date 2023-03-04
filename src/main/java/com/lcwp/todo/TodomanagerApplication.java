@@ -19,6 +19,7 @@ public class TodomanagerApplication implements CommandLineRunner {
 
     //static method
     public static void main(String[] args) {
+        //SpringApplication.run(TodomanagerApplication.class, args);
         SpringApplication.run(TodomanagerApplication.class, args);
 
 
